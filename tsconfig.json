@@ -1,10 +1,20 @@
 {
   "compilerOptions": {
-    "types": ["jest", "node"],
-    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDir": ".",                // <--- changed
+    "baseUrl": "./src",
+    "paths": {
+      "@models/*": ["models/*"],
+      "@controllers/*": ["controllers/*"],
+      "@routes/*": ["routes/*"]
+    },
     "module": "commonjs",
     "target": "es6",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "types": ["node", "jest"]
   },
-  "include": ["**/*.ts", "**/*.test.ts"]
+  "include": ["src/**/*.ts", "**/*.test.ts"]
 }

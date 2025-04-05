@@ -12,6 +12,9 @@ const mockResponse = () => {
   return res;
 };
 
+// Add this line to **ensure `findOne` exists**
+(User as any).findOne = jest.fn();
+
 describe("Auth Controller", () => {
   afterEach(() => jest.clearAllMocks());
 
@@ -21,7 +24,7 @@ describe("Auth Controller", () => {
     } as Request;
     const res = mockResponse();
 
-    (User.prototype.save as jest.Mock).mockResolvedValueOnce(true);
+    (User.prototype.save as jest.Mock) = jest.fn().mockResolvedValueOnce(true);
 
     await register(req, res);
 
@@ -36,6 +39,7 @@ describe("Auth Controller", () => {
     const res = mockResponse();
     const next = jest.fn();
 
+    // ✅ Add this to fix runtime error
     (User.findOne as jest.Mock).mockResolvedValueOnce(null);
 
     await login(req, res, next);
